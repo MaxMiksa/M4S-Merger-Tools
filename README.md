@@ -95,7 +95,7 @@
 ## 其他
 
 <details>
-<summary>为可执行文件</summary>
+<summary>打包为可执行文件（若使用源代码运行，而非下载EXE文件）</summary>
 
 程序提供了三种打包方式，可以将程序打包为独立的 `.exe` 文件，无需安装 Python 即可运行。
 
@@ -198,8 +198,11 @@ A: 查看日志输出区域中的错误信息，常见原因包括：
 - FFmpeg 版本不兼容
 - 网络连接问题（下载 FFmpeg 时）
 
-## 技术说明
+</details>
 
+<details>
+<summary>技术说明</summary>
+   
 - **GUI 框架**：Python tkinter
 - **视频处理**：FFmpeg
 - **错误处理**：完善的异常捕获和用户提示机制
