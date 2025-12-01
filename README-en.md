@@ -27,8 +27,8 @@ A desktop GUI application for Windows that provides a one-click solution for mer
 
 ### Recommended: Use the Compiled EXE File (Download and Run)
 
-1. Download the `M4S-Tools.exe` file from the **`Release`** section on the right sidebar of the GitHub interface.
-2. Run `M4S-Tools.exe`.
+1. Download the `M4S Merger Tools v1.0.0.exe` file from the **`Release`** section on the right sidebar of the GitHub interface.
+2. Run `M4S Merger Tools v1.0.0.exe`.
    Note: Internet connection is required for the first run (to automatically download FFmpeg).
 
 <details>
@@ -104,7 +104,7 @@ The program provides three methods to package the application into a standalone 
 
 1. Double-click `build_exe.bat`.
 2. The script will automatically install PyInstaller (if needed) and start the packaging process.
-3. The executable file will be located in `dist\M4S-Merger-Tools.exe`.
+3. The executable file will be located in `dist\M4S Merger Tools v1.0.0.exe`.
 
 ### Method 2: Using the Python Script
 
@@ -122,7 +122,7 @@ pip install pyinstaller
 build_exe.bat
 
 # Or directly using PyInstaller
-pyinstaller --onefile --windowed --name "M4S-Merger-Tools" main.py
+pyinstaller --onefile --windowed --name "M4S Merger Tools v1.0.0" main.py
 ```
 
 ### Distribution Notes

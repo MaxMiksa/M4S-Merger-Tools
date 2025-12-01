@@ -3,6 +3,7 @@
 """
 M4S 文件处理工具 - GUI 界面 (Final Perfect Version)
 修复: 弹窗语言跟随、按钮逻辑、启动阶段双语提示
+更新: UI圆角修复、按钮位置交换、分步日志、对齐调整
 """
 
 import tkinter as tk
@@ -35,27 +36,36 @@ except ImportError:
 # --- 翻译字典 ---
 TRANS = {
     "en": {
-        "title": "M4S Merger GUI",
+        "title": "M4S Merger Tool",
         "subtitle": "Merge segmented .m4s streams instantly.",
-        "video_title": "Video Stream (.m4s)",
-        "audio_title": "Audio Stream (.m4s)",
+        "video_title": " Video Stream (.m4s)",
+        "audio_title": " Audio Stream (.m4s)",
         "placeholder": "Click to select files...",
         "select_btn": "Select Files",
         "output_label": "Output:",
         "output_auto": "Auto (Current Directory)",
         "change_path": "Change Path",
         "format_hint": "Format: Copy Codec (Fast)",
-        "btn_merge": "Merge Files",
-        "btn_video": "Video Only",
-        "btn_audio": "Audio Only",
+        
+        # 按钮文案
+        "btn_merge": "Mux (Merge all into one file)",
+        "btn_video": "Merge Video Only",
+        "btn_audio": "Merge Audio Only",
+        
+        # 提示语
+        "multi_hint": "💡 Tip: Use Ctrl+Click to select multiple files in the specific order you want them merged.",
+        
+        # 日志文案
         "log_title": "PROCESS LOGS",
+        "log_step_v_end": "Video merge completed.",
+        "log_step_a_end": "Audio merge completed.",
+        "log_step_m_start": "Starting muxing process...",
+        
         "theme_dark": "Dark",
         "theme_light": "Light",
-        
-        # 修正：在英文界面，按钮应该显示“中文”供用户切换
         "lang_btn": "中文", 
         
-        # 运行时提示 (Follows Language)
+        # 运行时提示
         "processing": "Processing...",
         "success": "Success",
         "error": "Error",
@@ -66,26 +76,35 @@ TRANS = {
     },
     "zh": {
         "title": "M4S 合并工具",
-        "subtitle": "快速合并分段的 .m4s 音视频流",
-        "video_title": "视频流 (.m4s)",
-        "audio_title": "音频流 (.m4s)",
+        "subtitle": "快速合并分段的 .m4s 音视频文件",
+        "video_title": " 视频文件 (.m4s)",
+        "audio_title": " 音频文件 (.m4s)",
         "placeholder": "点击选择文件...",
         "select_btn": "选择文件",
         "output_label": "输出路径:",
         "output_auto": "自动 (当前目录)",
         "change_path": "更改路径",
         "format_hint": "格式: 复制流 (无损极速)",
-        "btn_merge": "开始合并",
-        "btn_video": "仅视频",
-        "btn_audio": "仅音频",
+        
+        # 按钮文案
+        "btn_merge": "混流(合并所有音视频成1个文件)",
+        "btn_video": "仅合并视频",
+        "btn_audio": "仅合并音频",
+        
+        # 提示语
+        "multi_hint": "💡 提示：在选择文件时按住 Ctrl 键依次点击，软件将按照您选择的先后顺序进行合并。",
+        
+        # 日志文案
         "log_title": "处理日志",
+        "log_step_v_end": "视频合并完成。",
+        "log_step_a_end": "音频合并完成。",
+        "log_step_m_start": "开始混流...",
+        
         "theme_dark": "深色模式",
         "theme_light": "浅色模式",
-        
-        # 修正：在中文界面，按钮应该显示“English”供用户切换
         "lang_btn": "English",
         
-        # 运行时提示 (跟随语言)
+        # 运行时提示
         "processing": "处理中...",
         "success": "成功",
         "error": "错误",
@@ -116,22 +135,23 @@ class M4SProcessorApp:
         ctk.set_default_color_theme("blue")
         
         self.root = ctk.CTk()
-        # 默认语言 (Default Language)
+        # 默认语言
         self.lang = "zh" 
         self.current_theme = "Dark"
         self.t = TRANS[self.lang]
         
         self.root.title("M4S Merger GUI")
-        self.root.geometry("960x840") 
+        self.root.geometry("900x900") 
         self.root.minsize(900, 700)
         self.root.configure(fg_color=COLORS["bg"])
         
-        # 字体配置 (Microsoft YaHei UI)
+        # 字体配置
         FONT_NAME = "Microsoft YaHei UI"
         self.font_title = (FONT_NAME, 32, "bold") 
         self.font_subtitle = (FONT_NAME, 16)
         self.font_header = (FONT_NAME, 16, "bold")
         self.font_body = (FONT_NAME, 15)
+        self.font_small = (FONT_NAME, 13)
         self.font_btn = (FONT_NAME, 16, "bold")
         self.font_mono = ("Consolas", 13)
         
@@ -142,7 +162,7 @@ class M4SProcessorApp:
         
         self.ui_refs = {} 
 
-        # 检查 FFmpeg (如果未安装，直接显示双语安装弹窗)
+        # 检查 FFmpeg
         if not M4SProcessor.check_ffmpeg_available():
             self.root.withdraw()
             self.install_ffmpeg_dialog()
@@ -151,7 +171,6 @@ class M4SProcessorApp:
             self.setup_ui()
 
     def toggle_language(self):
-        # 切换逻辑
         self.lang = "en" if self.lang == "zh" else "zh"
         self.t = TRANS[self.lang]
         self.refresh_text()
@@ -189,9 +208,10 @@ class M4SProcessorApp:
         self.ui_refs["btn_v"].configure(text=t["btn_video"])
         self.ui_refs["btn_a"].configure(text=t["btn_audio"])
         
-        # 标签
+        # 标签和提示
         self._update_path_label()
         self.ui_refs["format_hint"].configure(text=t["format_hint"])
+        self.ui_refs["multi_hint"].configure(text=t["multi_hint"])
         self.ui_refs["log_title"].configure(text=f">_ {t['log_title']}")
         
         # 刷新占位符
@@ -208,7 +228,7 @@ class M4SProcessorApp:
         
         # 左侧：主题切换
         self.ui_refs["theme_btn"] = ctk.CTkButton(
-            top_bar, text="", width=80, height=32,
+            top_bar, text="", width=100, height=40,
             fg_color=COLORS["input_bg"], hover_color=COLORS["card_border"],
             text_color=COLORS["text_main"], font=self.font_body, 
             command=self.toggle_theme
@@ -217,7 +237,7 @@ class M4SProcessorApp:
 
         # 右侧：语言切换
         self.ui_refs["lang_btn"] = ctk.CTkButton(
-            top_bar, text="", width=80, height=32,
+            top_bar, text="", width=100, height=40,
             fg_color=COLORS["input_bg"], hover_color=COLORS["card_border"],
             text_color=COLORS["text_main"], font=self.font_body, 
             command=self.toggle_language
@@ -228,8 +248,8 @@ class M4SProcessorApp:
         center_head = ctk.CTkFrame(top_bar, fg_color="transparent")
         center_head.pack(side="top", anchor="center")
 
-        icon_box = ctk.CTkFrame(center_head, fg_color=COLORS["card_border"], corner_radius=12, width=48, height=48)
-        icon_box.pack(pady=(0, 5))
+        icon_box = ctk.CTkFrame(center_head, fg_color=COLORS["card_border"], corner_radius=12, width=50, height=50)
+        icon_box.pack(pady=(0, 8))
         icon_box.pack_propagate(False)
         ctk.CTkLabel(icon_box, text="📚", font=("Segoe UI Emoji", 24)).place(relx=0.5, rely=0.5, anchor="center")
         
@@ -242,9 +262,9 @@ class M4SProcessorApp:
         main_card = ctk.CTkFrame(self.main_frame, fg_color=COLORS["card"], corner_radius=15, border_width=1, border_color=COLORS["card_border"])
         main_card.pack(fill="both", expand=True, pady=10)
 
-        # 文件区域
+        # 文件区域 (修改：padx=10，对齐更准确)
         files_grid = ctk.CTkFrame(main_card, fg_color="transparent")
-        files_grid.pack(fill="x", padx=20, pady=20)
+        files_grid.pack(fill="x", padx=10, pady=(20,10))
         files_grid.grid_columnconfigure(0, weight=1)
         files_grid.grid_columnconfigure(1, weight=1)
 
@@ -254,6 +274,13 @@ class M4SProcessorApp:
         # --- 控制区 ---
         control_frame = ctk.CTkFrame(main_card, fg_color="transparent")
         control_frame.pack(fill="x", padx=20, pady=(0, 20))
+
+        # 新增：合并顺序提示语 (修改：pady=(10, 15)，垂直居中)
+        self.ui_refs["multi_hint"] = ctk.CTkLabel(
+            control_frame, text="", text_color=COLORS["text_body"], 
+            font=self.font_body, anchor="w"
+        )
+        self.ui_refs["multi_hint"].pack(fill="x", pady=(0, 15), padx=5)
 
         # 路径栏
         path_frame = ctk.CTkFrame(control_frame, fg_color=COLORS["input_bg"], corner_radius=8, height=45)
@@ -281,34 +308,37 @@ class M4SProcessorApp:
         action_frame.pack(fill="x")
         
         self.ui_refs["format_hint"] = ctk.CTkLabel(action_frame, text="", text_color=COLORS["text_body"], font=self.font_body)
-        self.ui_refs["format_hint"].pack(side="left")
+        self.ui_refs["format_hint"].pack(side="left", padx=6, pady=(0, 5))
 
         btn_box = ctk.CTkFrame(action_frame, fg_color="transparent")
         btn_box.pack(side="right")
         
+        # 修改：位置交换，先 pack 混流(右)，再 pack 音频(中)，最后 pack 视频(左)
         self.ui_refs["btn_merge"] = ctk.CTkButton(
-            btn_box, text="", font=self.font_btn, height=45, width=180,
+            btn_box, text="", font=self.font_btn, height=45, width=260, 
             fg_color=COLORS["brand"], hover_color=COLORS["brand_hover"], 
             text_color="#ffffff",
             command=self.merge_av_direct
         )
         self.ui_refs["btn_merge"].pack(side="right", padx=5)
         
-        self.ui_refs["btn_v"] = ctk.CTkButton(
-            btn_box, text="", font=self.font_body, height=45, width=110,
-            fg_color=COLORS["input_bg"], hover_color=COLORS["card_border"], 
-            text_color=COLORS["text_main"],
-            command=self.merge_video
-        )
-        self.ui_refs["btn_v"].pack(side="right", padx=5)
-        
+        # 修改：位置交换，现在 Audio 按钮在混流按钮左边
         self.ui_refs["btn_a"] = ctk.CTkButton(
-            btn_box, text="", font=self.font_body, height=45, width=110,
+            btn_box, text="", font=self.font_body, height=45, width=155, # 宽度增加到 140
             fg_color=COLORS["input_bg"], hover_color=COLORS["card_border"], 
             text_color=COLORS["text_main"],
             command=self.merge_audio
         )
         self.ui_refs["btn_a"].pack(side="right", padx=5)
+
+        # 修改：位置交换，现在 Video 按钮在最左边 (视觉上)
+        self.ui_refs["btn_v"] = ctk.CTkButton(
+            btn_box, text="", font=self.font_body, height=45, width=155, # 宽度增加到 140
+            fg_color=COLORS["input_bg"], hover_color=COLORS["card_border"], 
+            text_color=COLORS["text_main"],
+            command=self.merge_video
+        )
+        self.ui_refs["btn_v"].pack(side="right", padx=5)
 
         # --- 日志 ---
         self._create_log_viewer(main_card)
@@ -333,7 +363,7 @@ class M4SProcessorApp:
         ).pack(side="right")
         
         # 列表
-        list_frame = ctk.CTkScrollableFrame(container, height=120, fg_color="transparent", scrollbar_button_color=COLORS["card_border"])
+        list_frame = ctk.CTkScrollableFrame(container, height=90, fg_color="transparent", scrollbar_button_color=COLORS["card_border"])
         list_frame.pack(fill="both", expand=True, padx=5)
         
         cmd_add = self.select_video_files if type_key == "video" else self.select_audio_files
@@ -354,7 +384,7 @@ class M4SProcessorApp:
     def _show_placeholder(self, frame, cmd):
         for w in frame.winfo_children(): w.destroy()
         wrap = ctk.CTkFrame(frame, fg_color="transparent")
-        wrap.pack(expand=True, fill="both", pady=15)
+        wrap.pack(expand=True, fill="both", pady=(90,0))
         ctk.CTkButton(
             wrap, text=self.t["placeholder"], fg_color="transparent", 
             text_color=COLORS["text_body"], hover=False, font=self.font_body, command=cmd
@@ -371,28 +401,30 @@ class M4SProcessorApp:
             row = ctk.CTkFrame(list_ui, fg_color="transparent")
             row.pack(fill="x", pady=2)
             name = path.name
-            if len(name) > 28: name = name[:25] + "..."
+            if len(name) > 45: name = name[:42] + "..."
             ctk.CTkLabel(row, text=name, text_color=COLORS["text_main"], anchor="w", font=self.font_body).pack(side="left")
             ctk.CTkLabel(row, text=f"{size_mb:.1f} MB", text_color=COLORS["text_body"], font=("Consolas", 12)).pack(side="right")
 
     def _create_log_viewer(self, parent):
+        # 修改：日志框背景纯黑，统一圆角
         cont = ctk.CTkFrame(parent, fg_color=COLORS["terminal_bg"], corner_radius=8)
         cont.pack(fill="both", padx=20, pady=(0, 20))
         
-        head = ctk.CTkFrame(cont, fg_color="#1e1e1e", corner_radius=8, height=30)
+        # 修改：Header背景透明，使顶部圆角显示正常
+        head = ctk.CTkFrame(cont, fg_color="transparent", height=30)
         head.pack(fill="x")
         head.pack_propagate(False)
         
         lbl = ctk.CTkLabel(head, text="", text_color="#64748b", font=("Consolas", 12, "bold"))
-        lbl.pack(side="left", padx=10)
+        lbl.pack(side="left", padx=10, pady=(5,0))
         self.ui_refs["log_title"] = lbl
         
         self.log_text = ctk.CTkTextbox(
             cont, height=120, 
             fg_color=COLORS["terminal_bg"], text_color=COLORS["terminal_fg"], 
-            font=self.font_mono, activate_scrollbars=True
+            font=self.font_mono, activate_scrollbars=True, corner_radius=6
         )
-        self.log_text.pack(fill="both", expand=True, padx=5, pady=5)
+        self.log_text.pack(fill="both", expand=True, padx=5, pady=(0, 5))
         self.log_text.configure(state="disabled")
 
     def _update_path_label(self):
@@ -438,7 +470,6 @@ class M4SProcessorApp:
     def _run_task(self, name_key, task_func):
         if self.is_processing: return
         
-        # 修正：使用 self.t[] 动态获取当前语言的错误提示
         if "video" in name_key.lower() and not self.video_files:
             messagebox.showwarning(self.t["error"], self.t["no_video"])
             return
@@ -466,7 +497,6 @@ class M4SProcessorApp:
         self.progress_bar.set(0)
         if success:
             self.log(f"{self.t['success']}! {msg}")
-            # 修正：弹窗使用动态语言
             messagebox.showinfo(self.t["success"], f"{self.t['saved']}\n{msg}")
             try: os.startfile(os.path.dirname(msg))
             except: pass
@@ -476,12 +506,28 @@ class M4SProcessorApp:
 
     def merge_video(self): self._run_task("video", lambda: self.processor.merge_video_segments(self.video_files, self.output_dir))
     def merge_audio(self): self._run_task("audio", lambda: self.processor.merge_audio_segments(self.audio_files, self.output_dir))
+    
     def merge_av_direct(self): 
         if not self.video_files or not self.audio_files:
-             # 修正：使用动态语言提示
              messagebox.showwarning(self.t["error"], self.t["need_both"])
              return
-        self._run_task("full", lambda: self.processor.process_all(self.video_files, self.audio_files, self.output_dir))
+             
+        # 修改：分步处理并记录日志
+        def full_task():
+            # 1. 视频
+            v_path = self.processor.merge_video_segments(self.video_files, self.output_dir)
+            self.root.after(0, lambda: self.log(self.t["log_step_v_end"]))
+            
+            # 2. 音频
+            a_path = self.processor.merge_audio_segments(self.audio_files, self.output_dir)
+            self.root.after(0, lambda: self.log(self.t["log_step_a_end"]))
+            
+            # 3. 混流
+            self.root.after(0, lambda: self.log(self.t["log_step_m_start"]))
+            final_path = self.processor.merge_av(v_path, a_path, self.output_dir)
+            return final_path
+
+        self._run_task("full", full_task)
 
     # --- 安装弹窗 (强制双语，因为此时用户无法切换语言) ---
     def install_ffmpeg_dialog(self):

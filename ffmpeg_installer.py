@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 FFmpeg 自动安装模块
+FFmpeg Auto-Installation Module
 """
 
 import os
@@ -16,7 +17,7 @@ from typing import Optional, Tuple
 
 
 class FFmpegInstaller:
-    """FFmpeg 安装器"""
+    """FFmpeg 安装器 / FFmpeg Installer"""
     
     # FFmpeg 下载地址（使用 gyan.dev 的构建版本）
     FFMPEG_URL = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
@@ -24,7 +25,7 @@ class FFmpegInstaller:
     @staticmethod
     def check_ffmpeg(ffmpeg_path: str = "ffmpeg") -> Tuple[bool, Optional[str]]:
         """
-        检查 FFmpeg 是否已安装
+        检查 FFmpeg 是否已安装 / Check if FFmpeg is installed
         
         Args:
             ffmpeg_path: FFmpeg 可执行文件路径
@@ -46,13 +47,13 @@ class FFmpegInstaller:
         except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
             return False, None
         except Exception as e:
-            print(f"检查 FFmpeg 时出错: {e}")
+            print(f"检查 FFmpeg 时出错 / Error checking FFmpeg: {e}")
             return False, None
     
     @staticmethod
     def download_ffmpeg(download_dir: Path, progress_callback=None) -> Path:
         """
-        下载 FFmpeg
+        下载 FFmpeg / Download FFmpeg
         
         Args:
             download_dir: 下载目录
@@ -71,10 +72,10 @@ class FFmpegInstaller:
                     if total_size > 0:
                         percent = int((downloaded / total_size) * 100)
                         progress_callback('download', downloaded, total_size, 
-                                       f"下载中: {downloaded // 1024 // 1024}MB / {total_size // 1024 // 1024}MB ({percent}%)")
+                                       f"下载中 / Downloading: {downloaded // 1024 // 1024}MB / {total_size // 1024 // 1024}MB ({percent}%)")
                     else:
                         progress_callback('download', downloaded, -1, 
-                                       f"下载中: {downloaded // 1024 // 1024}MB")
+                                       f"下载中 / Downloading: {downloaded // 1024 // 1024}MB")
             
             try:
                 urllib.request.urlretrieve(
@@ -85,25 +86,27 @@ class FFmpegInstaller:
                 
                 # 检查文件是否下载成功
                 if not zip_path.exists() or zip_path.stat().st_size == 0:
-                    raise RuntimeError("下载的文件为空或不存在")
+                    raise RuntimeError("下载的文件为空或不存在 / Downloaded file is empty or does not exist")
                 
                 return zip_path
             except urllib.error.URLError as e:
-                raise RuntimeError(f"网络错误，无法下载 FFmpeg: {str(e)}\n请检查网络连接")
+                raise RuntimeError(f"网络错误，无法下载 FFmpeg / Network error, failed to download FFmpeg: {str(e)}\n"
+                                   f"请检查网络连接 / Please check your internet connection")
             except Exception as e:
                 if zip_path.exists():
                     try:
                         zip_path.unlink()
                     except:
                         pass
-                raise RuntimeError(f"下载 FFmpeg 失败: {str(e)}")
+                raise RuntimeError(f"下载 FFmpeg 失败 / Failed to download FFmpeg: {str(e)}")
         except Exception as e:
-            raise RuntimeError(f"下载 FFmpeg 时出错: {str(e)}\n详细信息: {traceback.format_exc()}")
+            raise RuntimeError(f"下载 FFmpeg 时出错 / Error downloading FFmpeg: {str(e)}\n"
+                               f"详细信息 / Details: {traceback.format_exc()}")
     
     @staticmethod
     def extract_ffmpeg(zip_path: Path, extract_dir: Path, progress_callback=None) -> Path:
         """
-        解压 FFmpeg
+        解压 FFmpeg / Extract FFmpeg
         
         Args:
             zip_path: zip 文件路径
@@ -115,7 +118,7 @@ class FFmpegInstaller:
         """
         try:
             if not zip_path.exists():
-                raise FileNotFoundError(f"ZIP 文件不存在: {zip_path}")
+                raise FileNotFoundError(f"ZIP 文件不存在 / ZIP file not found: {zip_path}")
             
             extract_dir.mkdir(parents=True, exist_ok=True)
             
@@ -125,7 +128,7 @@ class FFmpegInstaller:
                     total_files = len(file_list)
                     
                     if total_files == 0:
-                        raise RuntimeError("ZIP 文件为空")
+                        raise RuntimeError("ZIP 文件为空 / ZIP file is empty")
                     
                     # 找到 bin 目录
                     bin_dir_name = None
@@ -138,7 +141,7 @@ class FFmpegInstaller:
                             break
                     
                     if not bin_dir_name:
-                        raise RuntimeError("无法在 ZIP 文件中找到 FFmpeg bin 目录")
+                        raise RuntimeError("无法在 ZIP 文件中找到 FFmpeg bin 目录 / Could not find FFmpeg bin directory in ZIP")
                     
                     # 解压文件
                     for i, member in enumerate(file_list):
@@ -146,44 +149,46 @@ class FFmpegInstaller:
                             zip_ref.extract(member, extract_dir)
                             if progress_callback:
                                 progress_callback('extract', i + 1, total_files, 
-                                                f"解压中: {i + 1}/{total_files} 文件")
+                                                f"解压中 / Extracting: {i + 1}/{total_files} 文件/files")
                         except Exception as e:
-                            raise RuntimeError(f"解压文件失败: {member}\n错误: {str(e)}")
+                            raise RuntimeError(f"解压文件失败 / Failed to extract file: {member}\n错误 / Error: {str(e)}")
                     
                     # 返回 bin 目录的完整路径
                     bin_dir = extract_dir / bin_dir_name / "bin"
                     if not bin_dir.exists():
-                        raise RuntimeError(f"FFmpeg bin 目录不存在: {bin_dir}")
+                        raise RuntimeError(f"FFmpeg bin 目录不存在 / FFmpeg bin directory not found: {bin_dir}")
                     
                     # 检查 ffmpeg.exe 是否存在
                     ffmpeg_exe = bin_dir / "ffmpeg.exe"
                     if not ffmpeg_exe.exists():
-                        raise RuntimeError(f"FFmpeg 可执行文件不存在: {ffmpeg_exe}")
+                        raise RuntimeError(f"FFmpeg 可执行文件不存在 / ffmpeg.exe not found: {ffmpeg_exe}")
                     
                     return bin_dir
                     
             except zipfile.BadZipFile:
-                raise RuntimeError(f"ZIP 文件损坏: {zip_path}")
+                raise RuntimeError(f"ZIP 文件损坏 / ZIP file corrupted: {zip_path}")
             except Exception as e:
-                raise RuntimeError(f"解压 FFmpeg 失败: {str(e)}")
+                raise RuntimeError(f"解压 FFmpeg 失败 / Failed to extract FFmpeg: {str(e)}")
                 
         except Exception as e:
-            raise RuntimeError(f"解压 FFmpeg 时出错: {str(e)}\n详细信息: {traceback.format_exc()}")
+            raise RuntimeError(f"解压 FFmpeg 时出错 / Error extracting FFmpeg: {str(e)}\n"
+                               f"详细信息 / Details: {traceback.format_exc()}")
     
     @staticmethod
     def add_to_path(bin_dir: Path) -> bool:
         """
         将 FFmpeg bin 目录添加到用户 PATH 环境变量
+        Add FFmpeg bin directory to user PATH environment variable
         
         Args:
             bin_dir: FFmpeg bin 目录路径
             
         Returns:
-            是否成功
+            是否成功 / Success status
         """
         try:
             if not bin_dir.exists():
-                raise FileNotFoundError(f"目录不存在: {bin_dir}")
+                raise FileNotFoundError(f"目录不存在 / Directory not found: {bin_dir}")
             
             bin_path = str(bin_dir.resolve())
             
@@ -250,17 +255,18 @@ class FFmpegInstaller:
                 except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired):
                     return False
             except Exception as e:
-                print(f"添加 PATH 时出错: {e}")
+                print(f"添加 PATH 时出错 / Error adding to PATH: {e}")
                 return False
                 
         except Exception as e:
-            print(f"添加 PATH 时出错: {str(e)}")
+            print(f"添加 PATH 时出错 / Error adding to PATH: {str(e)}")
             return False
     
     @staticmethod
     def install_ffmpeg(install_dir: Path, progress_callback=None) -> Tuple[Path, bool]:
         """
         安装 FFmpeg（下载、解压、添加到 PATH）
+        Install FFmpeg (Download, Extract, Add to PATH)
         
         Args:
             install_dir: 安装目录
@@ -277,29 +283,30 @@ class FFmpegInstaller:
             
             # 下载
             if progress_callback:
-                progress_callback('download', 0, 100, "正在下载 FFmpeg...")
+                progress_callback('download', 0, 100, "正在下载 FFmpeg... / Downloading FFmpeg...")
             
             zip_path = FFmpegInstaller.download_ffmpeg(temp_dir, progress_callback)
             
             # 解压
             if progress_callback:
-                progress_callback('extract', 0, 100, "正在解压 FFmpeg...")
+                progress_callback('extract', 0, 100, "正在解压 FFmpeg... / Extracting FFmpeg...")
             
             bin_dir = FFmpegInstaller.extract_ffmpeg(zip_path, install_dir, progress_callback)
             
             # 添加到 PATH
             if progress_callback:
-                progress_callback('path', 0, 100, "正在添加到 PATH...")
+                progress_callback('path', 0, 100, "正在添加到 PATH... / Adding to PATH...")
             
             path_success = FFmpegInstaller.add_to_path(bin_dir)
             
             if progress_callback:
-                progress_callback('path', 100, 100, "安装完成" if path_success else "安装完成（需要手动添加到 PATH）")
+                msg = "安装完成 / Installation Completed" if path_success else "安装完成（需要手动添加到 PATH） / Completed (Manual PATH add required)"
+                progress_callback('path', 100, 100, msg)
             
             return bin_dir, path_success
             
         except Exception as e:
-            error_msg = f"安装 FFmpeg 失败: {str(e)}\n详细信息: {traceback.format_exc()}"
+            error_msg = f"安装 FFmpeg 失败 / FFmpeg Installation Failed: {str(e)}\n详细信息 / Details: {traceback.format_exc()}"
             if progress_callback:
                 progress_callback('error', 0, 100, error_msg)
             raise RuntimeError(error_msg)
@@ -310,4 +317,3 @@ class FFmpegInstaller:
                     shutil.rmtree(temp_dir)
                 except:
                     pass
-
