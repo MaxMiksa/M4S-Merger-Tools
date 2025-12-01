@@ -49,25 +49,25 @@ TRANS = {
         
         # 按钮文案
         "btn_merge": "Mux (Merge all into one file)",
-        "btn_video": "Merge Video Only",
-        "btn_audio": "Merge Audio Only",
+        "btn_video": "Merge Video",
+        "btn_audio": "Merge Audio",
         
         # 提示语
         "multi_hint": "💡 Tip: Use Ctrl+Click to select multiple files in the specific order you want them merged.",
         
         # 日志文案
         "log_title": "PROCESS LOGS",
-        "log_step_v_end": "Video merge completed.",
-        "log_step_a_end": "Audio merge completed.",
-        "log_step_m_start": "Starting muxing process...",
+        "log_step_v_end": "视频合并完成。| Video merge completed.",
+        "log_step_a_end": "音频合并完成。| Audio merge completed. ",
+        "log_step_m_start": "开始混流... | Starting muxing process...",
         
         "theme_dark": "Dark",
         "theme_light": "Light",
         "lang_btn": "中文", 
         
         # 运行时提示
-        "processing": "Processing...",
-        "success": "Success",
+        "processing": "处理中... | Processing...",
+        "success": "成功 | Success",
         "error": "Error",
         "saved": "File saved to:",
         "no_video": "Please select video files first.",
@@ -76,7 +76,7 @@ TRANS = {
     },
     "zh": {
         "title": "M4S 合并工具",
-        "subtitle": "快速合并分段的 .m4s 音视频文件",
+        "subtitle": "一键合并分段的 .m4s 音视频文件",
         "video_title": " 视频文件 (.m4s)",
         "audio_title": " 音频文件 (.m4s)",
         "placeholder": "点击选择文件...",
@@ -96,17 +96,17 @@ TRANS = {
         
         # 日志文案
         "log_title": "处理日志",
-        "log_step_v_end": "视频合并完成。",
-        "log_step_a_end": "音频合并完成。",
-        "log_step_m_start": "开始混流...",
+        "log_step_v_end": "视频合并完成。| Video merge completed.",
+        "log_step_a_end": "音频合并完成。| Audio merge completed. ",
+        "log_step_m_start": "开始混流... | Starting muxing process...",
         
         "theme_dark": "深色模式",
         "theme_light": "浅色模式",
         "lang_btn": "English",
         
         # 运行时提示
-        "processing": "处理中...",
-        "success": "成功",
+        "processing": "处理中... | Processing...",
+        "success": "成功 | Success",
         "error": "错误",
         "saved": "文件已保存至:",
         "no_video": "请先选择视频文件。",
@@ -141,8 +141,8 @@ class M4SProcessorApp:
         self.t = TRANS[self.lang]
         
         self.root.title("M4S Merger GUI")
-        self.root.geometry("900x900") 
-        self.root.minsize(900, 700)
+        self.root.geometry("860x930") 
+        self.root.minsize(860, 700)
         self.root.configure(fg_color=COLORS["bg"])
         
         # 字体配置
@@ -151,9 +151,9 @@ class M4SProcessorApp:
         self.font_subtitle = (FONT_NAME, 16)
         self.font_header = (FONT_NAME, 16, "bold")
         self.font_body = (FONT_NAME, 15)
-        self.font_small = (FONT_NAME, 13)
+        self.font_small = (FONT_NAME, 14)
         self.font_btn = (FONT_NAME, 16, "bold")
-        self.font_mono = ("Consolas", 13)
+        self.font_mono = ("Consolas", 14)
         
         self.video_files = []
         self.audio_files = []
@@ -324,7 +324,7 @@ class M4SProcessorApp:
         
         # 修改：位置交换，现在 Audio 按钮在混流按钮左边
         self.ui_refs["btn_a"] = ctk.CTkButton(
-            btn_box, text="", font=self.font_body, height=45, width=155, # 宽度增加到 140
+            btn_box, text="", font=self.font_body, height=45, width=120, # 宽度增加到 140
             fg_color=COLORS["input_bg"], hover_color=COLORS["card_border"], 
             text_color=COLORS["text_main"],
             command=self.merge_audio
@@ -333,7 +333,7 @@ class M4SProcessorApp:
 
         # 修改：位置交换，现在 Video 按钮在最左边 (视觉上)
         self.ui_refs["btn_v"] = ctk.CTkButton(
-            btn_box, text="", font=self.font_body, height=45, width=155, # 宽度增加到 140
+            btn_box, text="", font=self.font_body, height=45, width=120, # 宽度增加到 140
             fg_color=COLORS["input_bg"], hover_color=COLORS["card_border"], 
             text_color=COLORS["text_main"],
             command=self.merge_video
