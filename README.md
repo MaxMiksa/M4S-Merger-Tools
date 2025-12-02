@@ -9,12 +9,12 @@
     <!-- 左侧图片 -->
     <img src="Presentation%20Videos/v1.1.0/ScreenShot%201%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
      alt="M4S Merger Tools v1.1.0 " 
-     width="450"/>
+     width="350"/>
     &nbsp;
     <!-- 右侧图片 -->
     <img src="Presentation%20Videos/v1.1.0/ScreenShot%202%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
      alt="M4S Merger Tools v1.1.0 " 
-     width="450"/>
+     width="350"/>
 </div>
 
 ## 功能特性
