@@ -40,7 +40,6 @@ Thumbs.db
 *.log
 
 # 自行创建的文件
-UI-improved/
 M4S Merger Tools v1.0.0.spec
 M4S Merger Tools v1.0.0.exe
 M4S Merger Tools v1.1.0.spec
@@ -51,5 +50,6 @@ start_debug.bat
 start_quick.bat
 build_exe_simple.bat
 
-# 历史github文件记录
+# 历史记录与备份
 Old versons/
+UI-improved/
