@@ -1,247 +1,244 @@
-# M4S 合并工具 v1.3.0 | [For English](https://github.com/MaxMiksa/M4S-Merger-Tools/blob/main/README-en.md)
+# M4S Merger Tools v1.3.0 | [For English](https://github.com/MaxMiksa/M4S-Merger-Tools/blob/main/README-zh.md)
 
-✅ **GUI界面，exe文件点开即用！ 无需预安装FFmpeg、更无需使用cmd！**  ✅  
+✅ **GUI Interface, Ready-to-Use EXE! No Manual FFmpeg Installation or Command Line Required!** ✅
 
-通过图形界面选择文件，一键完成 M4S 视频片段合并、音频片段合并以及最终的音视频混流工作。  
-一款适用于 Windows 的桌面应用程序，用于处理 M4S 文件（通常来自哔哩哔哩/Bilibili视频音频下载）。
+Select files via a graphical interface to instantly merge M4S video fragments, audio fragments, and perform the final audio/video muxing. This is a desktop application for Windows designed to handle M4S files (typically sourced from Bilibili video/audio downloads).
 
 <div align="center">
-    <!-- 左侧图片 -->
+    <!-- Left Image -->
     <img src="Presentation%20Videos/v1.1.0/ScreenShot%201%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
      alt="M4S Merger Tools v1.2.0 " 
-     width="400"/>
+     width="480"/>
     &nbsp;
-    <!-- 右侧图片 -->
+    <!-- Right Image -->
     <img src="Presentation%20Videos/v1.1.0/ScreenShot%202%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
      alt="M4S Merger Tools v1.2.0 " 
-     width="400"/>
+     width="480"/>
 </div>
 
-## 功能特性
+## Features
 
-| 特性 | 描述 |
+| Feature | Description |
 | :--- | :--- |
-| 🎬 **视频片段合并** | 将多个 M4S 视频片段合并为一个完整的视频文件。 |
-| 🎵 **音频片段合并** | 将多个 M4S 音频片段合并为一个完整的音频文件。 |
-| 🎞️ **音视频混流** | 将分离的 M4S 视频和音频文件合并为一个完整的 MP4 文件（同时包含画面和声音）。 |
-| 🚀 **一键自动化处理** | 全流程自动化，包括环境配置、FFmpeg下载、异常提示与解决，以及音视频的合并和混流。 |
-| 💻 **鼠标点击即用** | 友好的可视化操作界面，无需接触命令行。支持中英切换和浅色/深色模式切换。 |
-| 📝 **实时进度显示** | 实时显示详细的处理进度和日志信息。 |
-| ⚙️ **自动安装 FFmpeg** | 首次运行时自动检测并按需安装 FFmpeg（支持自定义下载和安装路径）。 |
-| 🛡️ **完善的错误处理** | 提供每个环节的详细错误提示，帮助用户快速定位并解决问题。 |
+| 🎬 **Video Merging** | Combines multiple M4S video fragments into a single complete video file. |
+| 🎵 **Audio Merging** | Combines multiple M4S audio fragments into a single complete audio file. |
+| 🎞️ **Audio/Video Muxing (Remixing)**  | Merges separate M4S video and audio files into one complete MP4 file (containing both picture and sound). |
+| 🚀 **One-Click Automation** | Fully automated workflow, including environment setup (FFmpeg download), error reporting/resolution, and combined audio/video processing. |
+| 💻 **Customizable GUI** | A user-friendly, click-and-run visual interface, eliminating command-line hassle. Supports switching between Chinese/English and light/dark modes. |
+| 📝 **Real-time Progress Display** | Shows detailed processing progress and log information in real-time. |
+| ⚙️ **Automatic FFmpeg Setup** | Automatically detects and installs FFmpeg on first run if needed (supports custom download and installation paths). |
+| 🛡️ **Robust Error Handling** | Provides detailed error prompts at every stage to help users quickly identify and resolve issues. |
 
-## 使用 （exe文件点开即用）
+## Usage (Run Directly via EXE)
 
 <img src="Presentation%20Videos/v1.1.0/Presentation%20video%20-%20M4S%20Merger%20Tools%20v1.1.0.gif" 
-     alt="M4S Merger Tools v1.2.0 演示动画" 
+     alt="M4S Merger Tools v1.2.0 Demo Animation" 
      width="1050"/>
 
-### 基本操作流程
+### Basic Workflow
 
-1. **选择视频文件**：点击"选择视频文件"按钮，选择需要合并的 M4S 视频片段
-2. **选择音频文件**：点击"选择音频文件"按钮，选择需要合并的 M4S 音频片段
-3. **选择输出目录**：点击“选择输出目录”按钮，选择结果文件的保存位置（若跳过，此步骤将默认保存到用户桌面）
-4. **执行处理**：
-   - **合并视频**：仅合并视频片段
-   - **合并音频**：仅合并音频片段
-   - **一键处理**：自动完成视频合并、音频合并和混流（推荐）
+1. **Select Video Files**: Click the "Select Video Files" button to choose the M4S video fragments to be merged.
+2. **Select Audio Files**: Click the "Select Audio Files" button to choose the M4S audio fragments to be merged.
+3. **Select Output Directory**: Click the "Select Output Directory" button to choose the save location for the result file (it defaults to your Desktop automatically if you skip this step).
+4. **Execute Processing**:
+   - **Merge Video Only**: Merges video fragments only.
+   - **Merge Audio Only**: Merges audio fragments only.
+   - **One-Click Muxing**: Automatically completes video merging, audio merging, and muxing (Recommended).
 
-### 输出文件说明
+### Output File Description
 
-所有导出文件默认附带“YYYY-MM-DD_HH-MM-SS”（24 小时制，精确到秒）的时间戳，避免多次操作被覆盖：
+All exports now carry 24-hour timestamps accurate to the second so that repeated runs never overwrite each other:
 
-- `Merged_Video_YYYY-MM-DD_HH-MM-SS.mp4`：合并后的视频文件
-- `Merged_Audio_YYYY-MM-DD_HH-MM-SS.mp4`：合并后的音频文件
-- `Muxed_Output_YYYY-MM-DD_HH-MM-SS.mp4`：混流得到的最终文件。混流过程所需的中间文件会存放在临时目录中，输出文件夹中只会留下这一份成品。
+- `Merged_Video_YYYY-MM-DD_HH-MM-SS.mp4`: The merged video file.
+- `Merged_Audio_YYYY-MM-DD_HH-MM-SS.mp4`: The merged audio file.
+- `Muxed_Output_YYYY-MM-DD_HH-MM-SS.mp4`: The final muxed file. Intermediate merged files are kept in a temporary directory—your output folder only receives this final MP4.
 
-## 系统要求
+## System Requirements
 
-- 若下载EXE文件：Windows 10/11
-- 若使用源代码运行：Python 3.7 或更高版本
+- If downloading the EXE file: Windows 10/11
+- If running from source code: Python 3.7 or higher
 
-## 安装
+## Installation
 
-### 推荐：使用打包好的 EXE 文件（下载即用）
+### Recommended: Using the Packaged EXE File (Download and Run)
 
-1. 下载本界面右侧`Release`中的 `M4S Merger Tools.exe`
-2. 运行 `M4S Merger Tools.exe`  
-   注意：首次运行需要网络连接（自动下载 FFmpeg）
-
-<details>
-<summary> 备用：通过源代码运行 </summary>
-
-#### 1. 安装 Python
-
-如果尚未安装 Python，请从 [Python 官网](https://www.python.org/downloads/) 下载并安装。
-
-#### 2. 运行程序
-
-1. 下载或克隆本项目
-2. 双击 `start.bat`
-
-### 3. 自动安装 FFmpeg（如需要）
-
-**首次运行时**，如果程序检测到未安装 FFmpeg，会自动弹出安装对话框：
-
-1. 选择 FFmpeg 的安装目录（默认为用户主目录下的 `ffmpeg` 文件夹）
-2. 点击"安装"按钮
-3. 程序会：
-   - **自动**下载 FFmpeg（100MB，大概下载10秒）
-   - **自动**解压到指定目录
-   - **自动**添加到系统 PATH 环境变量
-4. 安装完成后，**重启程序**即可使用
+1. Download `M4S Merger Tools.exe` from the `Release` section on the right side of this interface.
+2. Run `M4S Merger Tools.exe`.
+   Note: Internet connection is required for the first run (for automatic FFmpeg download).
 
 <details>
-<summary> 备用：详细步骤（手动安装FFmpeg） </summary>
-1. 从 [FFmpeg 官网](https://ffmpeg.org/download.html) 下载 Windows 版本
-2. 解压到任意目录（例如 `C:\ffmpeg`）
-3. 将 FFmpeg 的 `bin` 目录添加到系统 PATH 环境变量：
-   - 右键"此电脑" → "属性" → "高级系统设置" → "环境变量"
-   - 在"系统变量"中找到 `Path`，点击"编辑"
-   - 添加 FFmpeg 的 `bin` 目录路径（例如 `C:\ffmpeg\bin`）
-   - 点击"确定"保存
+<summary> Alternative: Running from Source Code </summary>
+
+#### 1. Install Python
+
+If Python is not installed, download and install it from the [Python official website](https://www.python.org/downloads/).
+
+#### 2. Run the Program
+
+1. Download or clone this project.
+2. Double-click `start.bat`.
+
+### 3. Automatic FFmpeg Installation (If Needed)
+
+**Upon the first run**, if the program detects that FFmpeg is not installed, an installation dialog will pop up:
+
+1. Select the installation directory for FFmpeg (defaults to the `ffmpeg` folder in the user's home directory).
+2. Click the "Install" button.
+3. The program will:
+   - **Automatically** download FFmpeg (approx. 100MB, takes about 10 seconds).
+   - **Automatically** extract it to the specified directory.
+   - **Automatically** add it to the system PATH environment variable.
+4. After installation, **restart the program** to use it.
+
+<details>
+<summary> Alternative: Detailed Steps (Manual FFmpeg Installation) </summary>
+1. Download the Windows version from the [FFmpeg official website](https://ffmpeg.org/download.html).
+2. Extract it to any directory (e.g., `C:\ffmpeg`).
+3. Add FFmpeg's `bin` directory to the system PATH environment variable:
+   - Right-click "This PC" → "Properties" → "Advanced system settings" → "Environment Variables".
+   - Under "System variables," find `Path` and click "Edit".
+   - Add the path to the FFmpeg `bin` directory (e.g., `C:\ffmpeg\bin`).
+   - Click "OK" to save.
 </details>
 
 </details>
 
-## 注意事项
+## Notes
 
-1. **文件顺序**：合并时会按照文件选择对话框中的顺序进行合并，请确保文件顺序正确
-2. **文件格式**：目前主要支持 M4S 格式，其他格式可能也能处理，但未经过充分测试
-3. **FFmpeg 路径**：如果 FFmpeg 不在系统 PATH 中，可以在代码中修改 `ffmpeg_path` 参数
-4. **处理时间**：大文件处理可能需要较长时间，请耐心等待
-5. **网络连接**：首次运行需要网络连接以下载 FFmpeg
+1. **File Order**: Merging is performed according to the order in which files were selected in the dialog; please ensure the file sequence is correct.
+2. **File Format**: Currently, the primary support is for M4S format; other formats may work but have not been fully tested.
+3. **FFmpeg Path**: If FFmpeg is not in the system PATH, you can modify the `ffmpeg_path` parameter in the source code.
+4. **Processing Time**: Processing large files may take a significant amount of time; please be patient.
+5. **Network Connection**: An internet connection is required for the first run to download FFmpeg.
 
-## 其他
+## Others
 
 <details>
-<summary>打包为可执行文件（若使用源代码运行，而非下载EXE文件）</summary>
+<summary>Packaging as an Executable (If running from source code, not using the downloaded EXE)</summary>
 
-程序提供了三种打包方式，可以将程序打包为独立的 `.exe` 文件，无需安装 Python 即可运行。
+The program provides three methods to package it into a standalone `.exe` file, allowing it to run without Python installed.
 
-### 方式一：使用批处理脚本（推荐）
+### Method 1: Using the Batch Script (Recommended)
 
-1. 双击运行 `build_exe.bat`
-2. 脚本会自动安装 PyInstaller（如未安装）并开始打包
-3. 打包完成后，可执行文件位于 `dist\M4S Merger Tools v1.x.0.exe`
+1. Double-click `build_exe.bat`.
+2. The script will automatically install PyInstaller (if not installed) and begin packaging.
+3. The executable file will be located in `dist\M4S Merger Tools v1.x.0.exe`.
 
-### 方式二：使用 Python 脚本
+### Method 2: Using the Python Script
 
 ```bash
 python build_exe.py
 ```
 
-### 方式三：手动打包
+### Method 3: Manual Packaging
 
 ```bash
-# 安装 PyInstaller
+# Install PyInstaller
 pip install pyinstaller
 
-# 打包（使用批处理脚本）
+# Package (using the batch script)
 build_exe.bat
 
-# 或直接使用 PyInstaller
+# Or directly use PyInstaller
 pyinstaller --onefile --windowed --name "M4S Merger Tools v1.x.0" main.py
 ```
 
-### 分发说明
+### Distribution Notes
 
-打包后的 `.exe` 文件可以：
-- 复制到任何 Windows 电脑上直接运行
-- 通过 U盘、网盘等方式分享给其他用户
-- 首次运行时，程序会自动检测并按需安装 FFmpeg（需要网络连接）
-
-</details>
-
-<details>
-<summary>完善的错误提示与处理机制</summary>
-
-程序已添加完善的错误处理机制，每个环节都会显示详细的错误提示。
-   ### 启动阶段
-   - Python 版本检查
-   - 模块导入检查
-   - GUI 初始化检查
-   
-   ### 运行阶段
-   - 文件选择错误提示
-   - FFmpeg 调用错误提示
-   - 文件处理错误提示
-   - 网络连接错误提示
-   
-   ### 安装阶段
-   - FFmpeg 下载错误提示
-   - 解压错误提示
-   - PATH 添加错误提示
-   
-   **如果程序运行无反应**：
-   1. 检查是否有错误提示窗口弹出（可能被其他窗口遮挡）
-   2. 检查任务管理器中是否有进程在运行
-   3. 尝试以管理员权限运行
-   4. 查看程序日志输出（如果使用源代码运行）
+The packaged `.exe` file can be:
+- Copied to any Windows computer and run directly.
+- Shared with other users via USB drives or cloud storage.
+- Upon first run, the program automatically detects and installs FFmpeg as needed (requires network connection).
 
 </details>
 
 <details>
-<summary>常见问题</summary>
+<summary>Comprehensive Error Prompts and Handling Mechanism</summary>
 
-### Q: 提示"未找到 FFmpeg"？
+The program includes a comprehensive error handling mechanism, displaying detailed error prompts at every stage.
 
-A: 程序首次运行时会自动检测 FFmpeg。如果未安装，会弹出安装对话框，按照提示操作即可。如果已安装但程序仍无法检测到，请确保 FFmpeg 已添加到系统 PATH 环境变量中，并重启程序。
-
-### Q: FFmpeg 安装失败怎么办？
-
-A: 可能的原因：
-- 网络连接问题：请检查网络连接，确保能访问互联网
-- 磁盘空间不足：FFmpeg 需要约 200MB 空间
-- 权限问题：确保对安装目录有写入权限
-
-如果自动安装失败，可以手动安装 FFmpeg（参考"安装步骤"中的手动安装说明）。
-
-### Q: 程序运行无反应？
-
-A: 请检查：
-1. 是否有错误提示窗口弹出（可能被其他窗口遮挡）
-2. 任务管理器中是否有进程在运行
-3. 尝试以管理员权限运行
-4. 如果使用 EXE 文件，确保文件完整且未被杀毒软件拦截
-
-### Q: 合并后的视频没有声音？
-
-A: 请确保同时选择了视频文件和音频文件，并使用"一键处理"功能进行混流。
-
-### Q: 处理失败怎么办？
-
-A: 查看日志输出区域中的错误信息，常见原因包括：
-- 文件路径包含特殊字符
-- 文件已损坏
-- 磁盘空间不足
-- FFmpeg 版本不兼容
-- 网络连接问题（下载 FFmpeg 时）
-
-</details>
-
-<details>
-<summary>技术说明</summary>
+   ### Startup Phase
+   - Python version check
+   - Module import check
+   - GUI initialization check
    
-- **GUI 框架**：Python tkinter
-- **视频处理**：FFmpeg
-- **错误处理**：完善的异常捕获和用户提示机制
+   ### Runtime Phase
+   - File selection error prompts
+   - FFmpeg call error prompts
+   - File processing error prompts
+   - Network connection error prompts
+   
+   ### Installation Phase
+   - FFmpeg download error prompts
+   - Extraction error prompts
+   - PATH addition error prompts
+   
+   **If the program fails to respond**:
+   1. Check for error pop-up windows (they might be hidden behind other windows).
+   2. Check if a process is running in the Task Manager.
+   3. Try running as administrator.
+   4. Check the program's log output (if running from source code).
 
 </details>
 
 <details>
-<summary>许可证</summary>
+<summary>FAQ</summary>
 
-本项目采用 MIT 许可证。
+### Q: Why does it prompt "FFmpeg not found"?
+
+A: The program automatically checks for FFmpeg on the first run. If it's not installed, an installation dialog will appear—follow the instructions. If it is installed but the program can't detect it, ensure FFmpeg is added to the system PATH environment variable, and then restart the program.
+
+### Q: What if FFmpeg installation fails?
+
+A: Possible reasons include:
+- Network connection issues: Check your internet connection.
+- Insufficient disk space: FFmpeg requires about 200MB of space.
+- Permission issues: Ensure you have write permissions for the installation directory.
+
+If automatic installation fails, you can install FFmpeg manually (refer to the manual installation instructions in the "Installation" section).
+
+### Q: The program is unresponsive?
+
+A: Please check:
+1. Whether an error prompt window appeared (it might be hidden).
+2. If a process is running in the Task Manager.
+3. Try running as administrator.
+4. If using the EXE file, ensure the file is complete and not blocked by antivirus software.
+
+### Q: The merged video has no sound?
+
+A: Please ensure that you have selected both video and audio files and used the "One-Click Muxing" feature to combine the streams.
+
+### Q: What if processing fails?
+
+A: Check the error message in the log output area. Common causes include:
+- File paths containing special characters.
+- Corrupted files.
+- Insufficient disk space.
+- FFmpeg version incompatibility.
+- Network connection issues (during FFmpeg download).
 
 </details>
 
-## 贡献与联系
+<details>
+<summary>Technical Details</summary>
+   
+- **GUI Framework**: Python tkinter
+- **Video Processing**: FFmpeg
+- **Error Handling**: Comprehensive exception capturing and user notification mechanism
 
-欢迎提交 Issue 和 Pull Request！  
-如有任何问题或建议，请联系Max Kong (卡内基梅隆大学，宾夕法尼亚州)。
+</details>
+
+<details>
+<summary>License</summary>
+
+This project is licensed under the MIT License.
+
+</details>
+
+## Contribution and Contact
 
 Welcome to submit Issues and Pull Requests!  
-Any questions or suggestions？Please contact Max Kong (Carnegie Mellon University, Pittsburgh, PA).
+Any questions or suggestions? Please contact Max Kong (Carnegie Mellon University, Pittsburgh, PA).
 
 Max Kong: kongzheyuan@outlook.com | zheyuank@andrew.cmu.edu
