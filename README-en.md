@@ -6,12 +6,12 @@ Select files via a graphical interface to instantly merge M4S video fragments, a
 
 <div align="center">
     <!-- Left Image -->
-    <img src="Presentation%20Videos/v1.2.0/ScreenShot%201%20-%20M4S%20Merger%20Tools%20v1.2.0.png" 
+    <img src="Presentation%20Videos/v1.1.0/ScreenShot%201%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
      alt="M4S Merger Tools v1.2.0 " 
      width="480"/>
     &nbsp;
     <!-- Right Image -->
-    <img src="Presentation%20Videos/v1.2.0/ScreenShot%202%20-%20M4S%20Merger%20Tools%20v1.2.0.png" 
+    <img src="Presentation%20Videos/v1.1.0/ScreenShot%202%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
      alt="M4S Merger Tools v1.2.0 " 
      width="480"/>
 </div>
@@ -31,7 +31,7 @@ Select files via a graphical interface to instantly merge M4S video fragments, a
 
 ## Usage (Run Directly via EXE)
 
-<img src="Presentation%20Videos/v1.2.0/Presentation%20video%20-%20M4S%20Merger%20Tools%20v1.2.0.gif" 
+<img src="Presentation%20Videos/v1.1.0/Presentation%20video%20-%20M4S%20Merger%20Tools%20v1.1.0.gif" 
      alt="M4S Merger Tools v1.2.0 Demo Animation" 
      width="1050"/>
 
