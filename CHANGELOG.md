@@ -1,5 +1,47 @@
 # 版本更迭说明
 
+## v1.3.0 – 启动体验与混流性能升级
+
+### 功能 1：异步 FFmpeg 检测，消除启动卡顿
+- **总结**：界面组件立即渲染，FFmpeg 健康检查转入后台线程，软件打开时不再白屏 2–3 秒。
+- **解决的痛点或问题**：打包后的 EXE 需等待 `ffmpeg -version` 完成才能显示窗口，导致明显卡顿。
+- **功能变更详情**：
+  - `gui.py` 在构造函数内直接调用 `setup_ui()`，随后使用 `self.root.after(200, self._start_ffmpeg_check)` 延迟启动后台检测。
+  - 日志面板即时输出 “[FFmpeg] 检查中... | Checking FFmpeg availability...” 提示，让用户知情。
+- **技术实现细节**：
+  - `_start_ffmpeg_check` 使用 `threading.Thread` 调用 `M4SProcessor.check_ffmpeg_available()`，完成后由 `_on_ffmpeg_check_finished` 在主线程中初始化 `M4SProcessor`。
+  - 用 `self.processor_ready` / `self.ffmpeg_checking` 标记状态，避免重复检测并保证线程安全。
+
+### 功能 2：处理前的初始化守卫
+- **总结**：所有按钮在执行任务前调用 `_ensure_processor_ready()`，必要时弹出双语提示并阻止误触。
+- **解决的痛点或问题**：FFmpeg 尚未初始化或正在安装时，用户点击操作会报错或没有即时反馈。
+- **功能变更详情**：
+  - `_run_task` 中在锁定输出目录后调用 `_ensure_processor_ready()`，若 FFmpeg 仍在初始化就通过 `messagebox` 提示。
+  - 若后台尚未开始检测，`_ensure_processor_ready()` 会自动重新触发 `_start_ffmpeg_check()`。
+- **技术实现细节**：
+  - `_ensure_processor_ready` 检查 `self.processor_ready` 与 `self.processor`，并复用 `self.t["ffmpeg_wait"]` 文案保证中英双语一致。
+  - 通过引入状态标记，避免在用户操作密集场景下重复创建 FFmpeg 实例。
+
+### 功能 3：混流直接复制流，极大缩短耗时
+- **总结**：FFmpeg 混流命令改为 `-c:v copy -c:a copy`，不再重新编码音频轨，实际耗时从 50–60 秒降至理论的几秒。
+- **解决的痛点或问题**：旧版强制 AAC 转码，34 MB 的音频流每次都要重新编码，令混流阶段明显拖慢。
+- **功能变更详情**：
+  - 用户将 95 MB 视频与 34 MB 音频导入后，混流过程只做封装转换，立即得到包含画面和声音的 MP4。
+  - README 中“性能提升报告”记录了这一改动及实测收益，方便团队回顾。
+- **技术实现细节**：
+  - `m4s_processor.py` 的 `merge_av` 只保留 `-y` 覆盖参数，去掉 `-strict experimental` 及 AAC 编码选项。
+  - 因为音频流直接复制，CPU 不再参与编码，大幅降低延迟与功耗。
+
+### 功能 4：日志字体与 FFmpeg 安装界面统一
+- **总结**：日志窗口改用微软雅黑等中文友好字体并恢复双语提示；FFmpeg 安装对话框采用与主界面一致的圆角卡片、品牌色和提示布局。
+- **解决的痛点或问题**：旧版日志内中文显示为 “???”；安装窗口使用默认 Tk 样式，观感与主界面割裂。
+- **功能变更详情**：
+  - `font_mono` 改为 `Microsoft YaHei UI`，FFmpeg 检查日志统一输出 “检查中 / 已就绪” 双语文本。
+  - 安装对话框使用 brand 色块图标、路径卡片、进度条与主按钮，附带双语提示语与自动化说明。
+- **技术实现细节**：
+  - `_start_ffmpeg_check` / `_on_ffmpeg_check_finished` 直接写入中文字符，确保 Windows 控制台与 UI 均可渲染。
+  - `install_ffmpeg_dialog` 以 `CTkFrame` 组合卡片、信息块与进度条，按钮采用 `COLORS["brand"]` 配色并复用主界面字体体系。
+
 ## v1.2.0 – 精准输出与桌面友好默认
 
 ### 功能 1：时间戳命名与可追溯输出

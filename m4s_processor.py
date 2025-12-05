@@ -281,15 +281,14 @@ class M4SProcessor:
                 output_name = self._generate_output_name("Muxed_Output")
             output_file = output_dir / output_name
             
-            # 使用 FFmpeg 合并音视频
+            # 使用 FFmpeg 合并音视频（全部直接复制以避免重复编码）
             cmd = [
                 self.ffmpeg_path,
                 "-i", video_file,
                 "-i", audio_file,
-                "-c:v", "copy",  # 视频流直接复制，不重新编码 / Copy video stream
-                "-c:a", "aac",   # 音频编码为 AAC（兼容性更好）/ Encode audio to AAC
-                "-strict", "experimental",
-                "-y",  # 覆盖输出文件 / Overwrite output
+                "-c:v", "copy",
+                "-c:a", "copy",
+                "-y",
                 str(output_file)
             ]
             

@@ -1,4 +1,4 @@
-# M4S 合并工具 v1.2.0 | [For English](https://github.com/MaxMiksa/M4S-Merger-Tools/blob/main/README-en.md)
+# M4S 合并工具 v1.3.0 | [For English](https://github.com/MaxMiksa/M4S-Merger-Tools/blob/main/README-en.md)
 
 ✅ **GUI界面，exe文件点开即用！ 无需预安装FFmpeg、更无需使用cmd！**  ✅  
 

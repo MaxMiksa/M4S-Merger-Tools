@@ -1,5 +1,47 @@
 # Release Notes
 
+## v1.3.0 – Faster Launch & Mux Performance
+
+### Feature 1: Asynchronous FFmpeg Check Removes Launch Freeze
+- **Summary**: UI widgets render immediately while FFmpeg verification runs on a background thread, so the packaged EXE no longer pauses for 2–3 seconds.
+- **Pain points solved**: Previously the window stayed blank until `ffmpeg -version` completed, making the app feel sluggish.
+- **Change details**:
+  - `gui.py` now calls `setup_ui()` right away and defers `_start_ffmpeg_check` via `root.after(200, ...)`.
+  - The log console prints “[FFmpeg] 检查中... | Checking FFmpeg availability...” to keep users informed.
+- **Technical implementation**:
+  - `_start_ffmpeg_check` spins up a `threading.Thread` to run `M4SProcessor.check_ffmpeg_available()` and dispatches results back through `_on_ffmpeg_check_finished`.
+  - State flags (`processor_ready`, `ffmpeg_checking`) prevent duplicate checks and keep the workflow thread-safe.
+
+### Feature 2: Processor-Ready Guard Before Every Task
+- **Summary**: Buttons call `_ensure_processor_ready()` before kicking off any work, showing a bilingual “FFmpeg is initializing...” notice if the background check or installer is still running.
+- **Pain points solved**: Early clicks during startup could fail silently or raise errors because FFmpeg wasn’t ready.
+- **Change details**:
+  - `_run_task` enforces default output selection and then verifies readiness; if FFmpeg isn’t available yet, it prompts the user and aborts.
+  - If a check hasn’t started, `_ensure_processor_ready()` re-triggers `_start_ffmpeg_check()` automatically.
+- **Technical implementation**:
+  - The guard inspects `self.processor_ready`/`self.processor` and references `self.t["ffmpeg_wait"]` for consistent bilingual copy.
+  - Centralizing the logic prevents multiple processors from being spawned under rapid user interactions.
+
+### Feature 3: Stream-Copy Muxing Restores Sub-Second Performance
+- **Summary**: The mux command now simply copies video and audio streams (`-c:v copy -c:a copy`), eliminating the heavy AAC re-encode and bringing runtime for a 95 MB + 34 MB pair back down to a couple of seconds.
+- **Pain points solved**: The previous `-c:a aac -strict experimental` pipeline forced FFmpeg to transcode the full audio track every time, taking 50–60 seconds.
+- **Change details**:
+  - Users immediately get a playable MP4 with both picture and sound because FFmpeg just rewraps the sources.
+  - The README’s performance section documents the before/after behavior for future reference.
+- **Technical implementation**:
+  - `merge_av` sets only `-y` plus the stream-copy flags; removing the AAC encode step means CPU usage drops drastically.
+  - Since nothing is transcoded, muxing latency is dominated by file I/O rather than processing.
+
+### Feature 4: Unified Log Font & FFmpeg Installer UI
+- **Summary**: The log console now uses a Chinese-friendly font and bilingual FFmpeg status strings, while the installer dialog adopts the same rounded card design and color palette as the main GUI.
+- **Pain points solved**: Chinese characters previously appeared as `???` in logs, and the installer looked like a plain Tk window that clashed with the modern interface.
+- **Change details**:
+  - `font_mono` switched to Microsoft YaHei UI, and the startup logs explicitly show “检查中” / “已就绪” alongside English text.
+  - The installer modal features a brand-colored icon, path card, bilingual helper text, themed progress bar, and a full-width primary button consistent with the main app.
+- **Technical implementation**:
+  - `_start_ffmpeg_check` and `_on_ffmpeg_check_finished` write Unicode strings directly, relying on the updated font to render them accurately.
+  - `install_ffmpeg_dialog` now composes its layout with `CTkFrame` containers, reused color tokens, and the shared font stack so it visually matches the rest of the UI.
+
 ## v1.2.0 – Precise Exports & Desktop-Friendly Defaults
 
 ### Feature 1: Timestamped and Traceable Outputs
