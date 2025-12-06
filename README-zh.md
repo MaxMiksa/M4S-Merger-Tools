@@ -5,17 +5,9 @@
 通过图形界面选择文件，一键完成 M4S 视频片段合并、音频片段合并以及最终的音视频混流工作。  
 一款适用于 Windows 的桌面应用程序，用于处理 M4S 文件（通常来自哔哩哔哩/Bilibili视频音频下载）。
 
-<div align="center">
-    <!-- 左侧图片 -->
-    <img src="Presentation/v1.1.0/ScreenShot%201%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
-     alt="M4S Merger Tools v1.2.0 " 
-     width="400"/>
-    &nbsp;
-    <!-- 右侧图片 -->
-    <img src="Presentation/v1.1.0/ScreenShot%202%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
-     alt="M4S Merger Tools v1.2.0 " 
-     width="400"/>
-</div>
+<img src="Presentation/v1.3.0/Presentation%20Video-%20v1.3.0.gif" 
+     alt="M4S Merger Tools v1.3.0 " 
+     width="850"/>
 
 ## 功能特性
 
@@ -32,9 +24,17 @@
 
 ## 使用 （exe文件点开即用）
 
-<img src="Presentation/v1.1.0/Presentation%20video%20-%20M4S%20Merger%20Tools%20v1.1.0.gif" 
-     alt="M4S Merger Tools v1.2.0 演示动画" 
-     width="1050"/>
+<div align="center">
+    <!-- Left Image -->
+    <img src="Presentation/v1.3.0/Presentation%20Pic%20-%201.png" 
+         alt="M4S Merger Tools v1.3.0 " 
+         width="450"/>
+    &nbsp;
+    <!-- Right Image -->
+    <img src="Presentation/v1.3.0/Presentation%20Pic%20-%202.png" 
+         alt="M4S Merger Tools v1.3.0 " 
+         width="450"/>
+</div>
 
 ### 基本操作流程
 
