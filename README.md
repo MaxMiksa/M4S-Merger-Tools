@@ -4,6 +4,9 @@
 
 Select files via a graphical interface to instantly merge M4S video fragments, audio fragments, and perform the final audio/video muxing. This is a desktop application for Windows designed to handle M4S files (typically sourced from Bilibili video/audio downloads).
 
+ - 🌐 Online Version (Click-to-Run) ➡️ The Web Counterpart | https://github.com/MaxMiksa/M4S-Merger-Tools-Web
+ - 🖥️ Offline Version (10x Faster) ➡️ This Repo | https://github.com/MaxMiksa/M4S-Merger-Tools
+
 <img src="Presentation/v1.3.0/Presentation%20Video-%20v1.3.0.gif" 
      alt="M4S Merger Tools v1.3.0 " 
      width="850"/>
