@@ -7,7 +7,7 @@
 ✅ **.M4S | .MP4 | .MP3**    
 
 🌐 在线版（即点即用） ➡️ 网页对应版本 | https://github.com/MaxMiksa/M4S-Merger-Tools-Web  
-🖥️ 离线版（速度快10倍） ➡️ 本仓库 | https://github.com/MaxMiksa/M4S-Merger-Tools
+🖥️ 离线版（可随身携带） ➡️ 本仓库 | https://github.com/MaxMiksa/M4S-Merger-Tools
 
 <img src="Presentation/v1.3.0/Presentation%20Video-%20v1.3.0.gif" 
      alt="M4S Merger Tools v1.3.0 " 
