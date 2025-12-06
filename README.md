@@ -4,17 +4,9 @@
 
 Select files via a graphical interface to instantly merge M4S video fragments, audio fragments, and perform the final audio/video muxing. This is a desktop application for Windows designed to handle M4S files (typically sourced from Bilibili video/audio downloads).
 
-<div align="center">
-    <!-- Left Image -->
-    <img src="Presentation/v1.1.0/ScreenShot%201%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
-     alt="M4S Merger Tools v1.2.0 " 
-     width="480"/>
-    &nbsp;
-    <!-- Right Image -->
-    <img src="Presentation/v1.1.0/ScreenShot%202%20-%20M4S%20Merger%20Tools%20v1.1.0.png" 
-     alt="M4S Merger Tools v1.2.0 " 
-     width="480"/>
-</div>
+<img src="Presentation/v1.3.0/Presentation%20Video-%20v1.3.0.gif" 
+     alt="M4S Merger Tools v1.3.0 " 
+     width="850"/>
 
 ## Features
 
@@ -31,9 +23,17 @@ Select files via a graphical interface to instantly merge M4S video fragments, a
 
 ## Usage (Run Directly via EXE)
 
-<img src="Presentation/v1.1.0/Presentation%20video%20-%20M4S%20Merger%20Tools%20v1.1.0.gif" 
-     alt="M4S Merger Tools v1.2.0 Demo Animation" 
-     width="1050"/>
+<div align="center">
+    <!-- Left Image -->
+    <img src="Presentation/v1.3.0/Presentation%20Pic%20-%201.png" 
+         alt="M4S Merger Tools v1.3.0 " 
+         width="450"/>
+    &nbsp;
+    <!-- Right Image -->
+    <img src="Presentation/v1.3.0/Presentation%20Pic%20-%202.png" 
+         alt="M4S Merger Tools v1.3.0 " 
+         width="450"/>
+</div>
 
 ### Basic Workflow
 
