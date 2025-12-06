@@ -1,9 +1,11 @@
 # M4S 合并工具 v1.3.0 | [For English](https://github.com/MaxMiksa/M4S-Merger-Tools/blob/main/README.md)
 
-✅ **GUI界面，exe文件点开即用！ 无需预安装FFmpeg、更无需使用cmd！**  ✅  
+✅ **图形化界面 | 下载后直接使用 | 无需使用cmd | 无需预安装FFmpeg | 免费**  
+✅ **视频合并 | 音频合并 | 音视频合并 (混流)**   
+✅ **.M4S | .MP4 | .MP3**    
 
-通过图形界面选择文件，一键完成 M4S 视频片段合并、音频片段合并以及最终的音视频混流工作。  
-一款适用于 Windows 的桌面应用程序，用于处理 M4S 文件（通常来自哔哩哔哩/Bilibili视频音频下载）。
+🌐 在线版（即点即用） ➡️ 网页对应版本 | https://github.com/MaxMiksa/M4S-Merger-Tools-Web  
+🖥️ 离线版（速度快10倍） ➡️ 本仓库 | https://github.com/MaxMiksa/M4S-Merger-Tools
 
 <img src="Presentation/v1.3.0/Presentation%20Video-%20v1.3.0.gif" 
      alt="M4S Merger Tools v1.3.0 " 
