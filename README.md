@@ -26,6 +26,17 @@
 | ⚙️ **Automatic FFmpeg Setup** | Automatically detects and installs FFmpeg on first run if needed (supports custom download and installation paths). |
 | 🛡️ **Robust Error Handling** | Provides detailed error prompts at every stage to help users quickly identify and resolve issues. |
 
+## Tech Stack
+
+This project is built using the following technologies:
+
+- **Language:** Python 3.7+
+- **GUI Framework:** `customtkinter` (Modern UI wrapper for Tkinter), `tkinter` (Native Python GUI)
+- **Image Processing:** `Pillow` (PIL Fork)
+- **Core Processing:** `FFmpeg` (External command-line tool for video/audio processing)
+- **Packaging:** `PyInstaller` (converts Python scripts into executable .exe)
+- **System Interaction:** `subprocess`, `os`, `sys`, `pathlib`, `threading` (Standard Python Libraries)
+
 ## Usage (Run Directly via EXE)
 
 <div align="center">

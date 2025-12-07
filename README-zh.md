@@ -26,6 +26,17 @@
 | ⚙️ **自动安装 FFmpeg** | 首次运行时自动检测并按需安装 FFmpeg（支持自定义下载和安装路径）。 |
 | 🛡️ **完善的错误处理** | 提供每个环节的详细错误提示，帮助用户快速定位并解决问题。 |
 
+## 技术栈
+
+本项目基于以下技术构建：
+
+- **编程语言**: Python 3.7+
+- **GUI 框架**: `customtkinter` (基于 Tkinter 的现代 UI 库), `tkinter` (Python 原生 GUI)
+- **图像处理**: `Pillow` (PIL 分支)
+- **核心处理**: `FFmpeg` (外部命令行音视频处理工具)
+- **打包工具**: `PyInstaller` (将 Python 脚本打包为可执行 .exe 文件)
+- **系统交互**: `subprocess`, `os`, `sys`, `pathlib`, `threading` (Python 标准库)
+
 ## 使用 （exe文件点开即用）
 
 <div align="center">

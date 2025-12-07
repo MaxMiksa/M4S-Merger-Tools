@@ -44,6 +44,7 @@ M4S Merger Tools v1.0.0.spec
 M4S Merger Tools v1.0.0.exe
 M4S Merger Tools v1.1.0.spec
 M4S Merger Tools v1.1.0.exe
+AI_RELEASE_RULES.md
 
 # 功能重复的文件
 start_debug.bat
@@ -54,3 +55,4 @@ build_exe_simple.bat
 Old versons/
 UI-improved/
 GUIDE_for_Update/
+Backup/
