@@ -56,3 +56,10 @@ Old versons/
 UI-improved/
 GUIDE_for_Update/
 Backup/
+
+# Local-only docs
+Files/
+files/
+CHANGELOG.md
+CHANGELOG-zh.md
+RELEASE_NOTE.md
