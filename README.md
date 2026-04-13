@@ -258,3 +258,4 @@ Welcome to submit Issues and Pull Requests!
 Any questions or suggestions? Please contact Max Kong (Carnegie Mellon University, Pittsburgh, PA).
 
 Max Kong: kongzheyuan@outlook.com | zheyuank@tepper.cmu.edu
+GitHub: https://github.com/MaxMiksa/M4S-Merger-Tools
